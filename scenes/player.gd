@@ -25,26 +25,18 @@ func _input(event):
 		head.rotation.x = clamp(head.rotation.x, deg_to_rad(-89), deg_to_rad(89))
 		
 func _physics_process(delta: float):	
+	handle_character_properties(delta)
+
+	handle_gravity(delta)
 	handle_character_movement(delta)
 	
+	move_and_slide()
+
+func handle_gravity(delta: float) -> void: 
 	if not is_on_floor():
 		velocity.y -= GRAVITY * delta
 
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
-
-	var input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
-	direction = lerp(direction, (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized(), delta * LERP_SPEED)
-	if direction:
-		velocity.x = direction.x * current_speed
-		velocity.z = direction.z * current_speed
-	else:
-		velocity.x = move_toward(velocity.x, 0, current_speed)
-		velocity.z = move_toward(velocity.z, 0, current_speed)
-
-	move_and_slide()
-
-func handle_character_movement(delta: float) -> void:
+func handle_character_properties(delta: float) -> void:
 	head.position.y = lerp(head.position.y, 0.6, delta * LERP_SPEED)
 	
 	if Input.is_action_pressed("sprint"):
@@ -55,3 +47,17 @@ func handle_character_movement(delta: float) -> void:
 		current_speed = CROUCHING_SPEED
 	else :
 		current_speed = WALKING_SPEED
+
+func handle_character_movement(delta: float) -> void:
+	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
+		velocity.y = JUMP_VELOCITY
+	
+	var input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
+	direction = lerp(direction, (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized(), delta * LERP_SPEED)
+	
+	if direction:
+		velocity.x = direction.x * current_speed
+		velocity.z = direction.z * current_speed
+	else:
+		velocity.x = move_toward(velocity.x, 0, current_speed)
+		velocity.z = move_toward(velocity.z, 0, current_speed)
