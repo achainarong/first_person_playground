@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://dg2w4vjapb7ol"]
+[gd_scene load_steps=9 format=3 uid="uid://dg2w4vjapb7ol"]
 
 [ext_resource type="Texture2D" uid="uid://dgdbxj6iwr0rt" path="res://assets/grids/Dark/texture_07.png" id="1_3qewr"]
 [ext_resource type="Texture2D" uid="uid://ce2uy16ja6jem" path="res://assets/kloofendal_48d_partly_cloudy_puresky_2k.hdr" id="1_nc8gj"]
 [ext_resource type="PackedScene" uid="uid://bi2nuot7u2fei" path="res://scenes/player.tscn" id="3_ps1w5"]
+[ext_resource type="PackedScene" uid="uid://5w3qledinm3p" path="res://scenes/crypt.tscn" id="4_hc2sb"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ig7tm"]
 albedo_texture = ExtResource("1_3qewr")
@@ -25,7 +26,7 @@ glow_enabled = true
 [node name="Stage" type="Node3D" parent="."]
 
 [node name="Floor" type="CSGBox3D" parent="Stage"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.227816, -0.491126, 0.0183182)
 use_collision = true
 size = Vector3(30, 1, 30)
 material = SubResource("StandardMaterial3D_ig7tm")
@@ -41,3 +42,6 @@ shadow_enabled = true
 
 [node name="Player" parent="." instance=ExtResource("3_ps1w5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="crypt2" parent="." instance=ExtResource("4_hc2sb")]
+transform = Transform3D(0, 0, 2, 0, 2, 0, -2, 0, 0, -2.34939, -0.391676, 7.8144)

@@ -50,12 +50,10 @@ func handle_character_properties(delta: float) -> void:
 		enable_standing_model()
 		set_default_head_position(delta)
 		
-		
 	elif Input.is_action_pressed("crouch"):
 		current_speed = CROUCHING_SPEED
 		enable_crouching_model()
 		head.position.y = lerp(head.position.y, 0.6 - CROUCHING_DEPTH, delta * LERP_SPEED)
-		
 		
 	else :
 		current_speed = WALKING_SPEED
