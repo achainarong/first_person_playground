@@ -1,0 +1,43 @@
+[gd_scene load_steps=8 format=3 uid="uid://dg2w4vjapb7ol"]
+
+[ext_resource type="Texture2D" uid="uid://dgdbxj6iwr0rt" path="res://assets/grids/Dark/texture_07.png" id="1_3qewr"]
+[ext_resource type="Texture2D" uid="uid://ce2uy16ja6jem" path="res://assets/kloofendal_48d_partly_cloudy_puresky_2k.hdr" id="1_nc8gj"]
+[ext_resource type="PackedScene" uid="uid://bi2nuot7u2fei" path="res://scenes/player.tscn" id="3_ps1w5"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ig7tm"]
+albedo_texture = ExtResource("1_3qewr")
+uv1_triplanar = true
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_uonh7"]
+panorama = ExtResource("1_nc8gj")
+
+[sub_resource type="Sky" id="Sky_a1yk5"]
+sky_material = SubResource("PanoramaSkyMaterial_uonh7")
+
+[sub_resource type="Environment" id="Environment_gh1ke"]
+background_mode = 2
+sky = SubResource("Sky_a1yk5")
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="World" type="Node3D"]
+
+[node name="Stage" type="Node3D" parent="."]
+
+[node name="Floor" type="CSGBox3D" parent="Stage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+use_collision = true
+size = Vector3(30, 1, 30)
+material = SubResource("StandardMaterial3D_ig7tm")
+
+[node name="Env" type="Node3D" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Env"]
+environment = SubResource("Environment_gh1ke")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Env"]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Player" parent="." instance=ExtResource("3_ps1w5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
