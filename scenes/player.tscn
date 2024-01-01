@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://bi2nuot7u2fei"]
+[gd_scene load_steps=7 format=3 uid="uid://bi2nuot7u2fei"]
 
 [ext_resource type="Script" path="res://assets/player.gd" id="1_7beah"]
+[ext_resource type="Script" path="res://scenes/reticle.gd" id="2_agbaf"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_bw4k8"]
 
@@ -35,3 +36,43 @@ disabled = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
 
 [node name="Camera3D" type="Camera3D" parent="Head"]
+
+[node name="Hand" type="Node3D" parent="Head/Camera3D"]
+
+[node name="Reticle" type="CenterContainer" parent="Head"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_agbaf")
+
+[node name="UserInterface" type="Control" parent="Head/Reticle"]
+layout_mode = 2
+mouse_filter = 1
+
+[node name="Top" type="Line2D" parent="Head/Reticle/UserInterface"]
+points = PackedVector2Array(0, -5, 0, -15)
+width = 3.0
+default_color = Color(0, 0, 0, 1)
+
+[node name="Right" type="Line2D" parent="Head/Reticle/UserInterface"]
+points = PackedVector2Array(5, 0, 15, 0)
+width = 3.0
+default_color = Color(0, 0, 0, 1)
+
+[node name="Bottom" type="Line2D" parent="Head/Reticle/UserInterface"]
+points = PackedVector2Array(0, 5, 0, 15)
+width = 3.0
+default_color = Color(0, 0, 0, 1)
+
+[node name="Left" type="Line2D" parent="Head/Reticle/UserInterface"]
+points = PackedVector2Array(-5, 0, -15, 0)
+width = 3.0
+default_color = Color(0, 0, 0, 1)
